@@ -6,18 +6,18 @@
 from datetime import datetime, timedelta
 from typing import Dict, Optional
 
-import bcrypt # type: ignore
+import bcrypt
 from database import SessionLocal
-from sqlalchemy.orm import Session as DBSession# type: ignore
-import jwt # type: ignore
+from sqlalchemy.orm import Session as DBSession
+import jwt
 
-from ibtrading.domain import User, LogoutResponse, LoginResponse, ErrorCode # type: ignore
-from ibtrading.domain.auth import Session, AuthResponse # type: ignore
-from ibtrading.domain.user import UserWithPassword # type: ignore
-from ibtrading.utils import loggerutil # type: ignore
-from ibtrading.utils.singleton import Singleton # type: ignore
+from ibtrading.domain import User, LogoutResponse, LoginResponse, ErrorCode
+from ibtrading.domain.auth import Session, AuthResponse
+from ibtrading.domain.user import UserWithPassword
+from ibtrading.utils import loggerutil
+from ibtrading.utils.singleton import Singleton
 from user_repository import UserRepository
-from user_service import UserService # type: ignore
+from user_service import UserService
 
 JWT_SECRET_KEY = "secret@543"
 JWT_ALGORITHM = "HS256"
@@ -75,6 +75,7 @@ class AuthService(metaclass=Singleton):
             self.user_service.create_user("ashok", "Ashok Pant", "admin", self.hash_password("Ashok@321"))
         if self.user_service.get_user("test") is None:
             self.user_service.create_user("test", "Test User", "user", self.hash_password("Test@321"))
+            
     def get_user(self, username: str) -> Optional[User]:
         user_model = self.user_service.get_user(username)
         if not user_model:
